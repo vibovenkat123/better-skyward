@@ -16,5 +16,18 @@ func Open() (*sql.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	// set a schema
+	_, err = db.Exec(`
+CREATE TABLE IF NOT EXISTS classes (
+    	id INTEGER PRIMARY KEY AUTOINCREMENT,
+    	name TEXT NOT NULL,
+    	teacher TEXT NOT NULL,
+    	room TEXT NOT NULL,
+    	period INTEGER NOT NULL
+);`)
+
+	if err != nil {
+		return nil, err
+	}
 	return db, nil
 }
